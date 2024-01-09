@@ -4,7 +4,7 @@ import { useAppInfoStore } from "stores/version.store";
 
 
 export async function addPushNotificationsListeners() {
-  const { setToken } = useAppInfoStore()
+  const { setToken, incrementVersion } = useAppInfoStore()
 
   await PushNotifications.addListener('registration', token => {
     console.info('Registration token: ', token.value);
@@ -19,6 +19,7 @@ export async function addPushNotificationsListeners() {
 
   await PushNotifications.addListener('pushNotificationReceived', notification => {
     console.log('Push notification received: ', notification);
+    incrementVersion()
   });
 
   await PushNotifications.addListener('pushNotificationActionPerformed', notification => {
