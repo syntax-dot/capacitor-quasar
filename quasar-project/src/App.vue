@@ -4,9 +4,10 @@
 
 <script setup lang="ts">
 import { PushNotifications } from '@capacitor/push-notifications';
-import {onMounted} from "vue";
+import { CapacitorUpdater } from '@capgo/capacitor-updater'
+import { onMounted } from "vue";
 
-const addListeners = async () => {
+async function addListeners() {
   await PushNotifications.addListener('registration', token => {
     console.info('Registration token: ', token.value);
   });
@@ -24,7 +25,7 @@ const addListeners = async () => {
   });
 }
 
-const registerNotifications = async () => {
+async function registerNotifications() {
   let permStatus = await PushNotifications.checkPermissions();
 
   if (permStatus.receive === 'prompt') {
@@ -38,12 +39,9 @@ const registerNotifications = async () => {
   await PushNotifications.register();
 }
 
-const getDeliveredNotifications = async () => {
-  const notificationList = await PushNotifications.getDeliveredNotifications();
-  console.log('delivered notifications', notificationList);
-}
-
 onMounted(async () => {
+  await addListeners()
   await registerNotifications()
+  await CapacitorUpdater.notifyAppReady()
 })
 </script>
