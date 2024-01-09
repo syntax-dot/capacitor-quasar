@@ -20,6 +20,7 @@
     "@capacitor/push-notifications": "^5.1.0",
     "@capgo/capacitor-updater": "^5.3.43",
     "@quasar/extras": "^1.16.4",
+    "pinia": "^2.1.7",
     "quasar": "^2.6.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0"

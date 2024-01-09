@@ -4,10 +4,9 @@
       <q-toolbar>
 
         <q-toolbar-title>
-          Quasar App
+          <div v-text="`Current version: ${$state?.version}`" />
         </q-toolbar-title>
 
-        <div>Current version {{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
@@ -18,4 +17,7 @@
 </template>
 
 <script setup lang="ts">
+import { useVersionStore } from "stores/version.store";
+
+const { $state } = useVersionStore()
 </script>
