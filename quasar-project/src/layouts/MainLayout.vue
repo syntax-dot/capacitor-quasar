@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { useVersionStore } from "stores/version.store";
+import { useAppInfoStore } from "stores/version.store";
 
-const { $state } = useVersionStore()
+const { $state } = useAppInfoStore()
 </script>

@@ -1,12 +1,14 @@
 import { defineStore } from 'pinia';
 
 interface VersionState {
-  version: number
+  version: number,
+  token: string | null,
 }
 
-export const useVersionStore = defineStore('version', {
+export const useAppInfoStore = defineStore('app-info', {
   state: (): VersionState => ({
-    version: 0
+    version: 0,
+    token: null
   }),
 
   getters: {
@@ -18,6 +20,10 @@ export const useVersionStore = defineStore('version', {
   actions: {
     incrementVersion () {
       this.version++;
+    },
+
+    setToken (newToken: string) {
+      this.token = newToken;
     }
   }
 });
