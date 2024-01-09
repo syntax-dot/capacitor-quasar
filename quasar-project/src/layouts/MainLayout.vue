@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header elevated :style="{ backgroundColor: $state.color }">
       <q-toolbar>
 
         <q-toolbar-title>
