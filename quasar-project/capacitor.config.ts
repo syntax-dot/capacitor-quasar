@@ -9,7 +9,7 @@ const config: CapacitorConfig = {
   },
   plugins: {
     CapacitorUpdater : {
-      autoUpdate: true,
+      autoUpdate: false,
     },
     PushNotifications: {
       presentationOptions: ["badge", "sound", "alert"],
