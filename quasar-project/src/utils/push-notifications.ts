@@ -1,9 +1,9 @@
 import { PushNotifications } from "@capacitor/push-notifications";
 import { useAppInfoStore } from "stores/version.store";
+import { QVueGlobals } from "quasar";
+import { Notify } from 'quasar'
 
-
-
-export async function addPushNotificationsListeners() {
+export async function addPushNotificationsListeners(quasar?: QVueGlobals) {
   const { setToken, incrementVersion } = useAppInfoStore()
 
   await PushNotifications.addListener('registration', token => {
@@ -19,6 +19,12 @@ export async function addPushNotificationsListeners() {
 
   await PushNotifications.addListener('pushNotificationReceived', notification => {
     console.log('Push notification received: ', notification);
+    Notify.create({
+      message: notification?.title,
+      caption: notification?.body,
+      color: 'secondary',
+      position: 'top-right',
+    })
     incrementVersion()
   });
 

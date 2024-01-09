@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import {getColorByVersion} from "src/utils/get-color-by-version";
+import { getColorByVersion } from "src/utils/get-color-by-version";
 
 interface VersionState {
   version: number,

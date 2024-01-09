@@ -7,17 +7,16 @@
         </q-btn>
       </template>
     </q-input>
-    <q-btn :label="buttonLabel" @click="incrementVersion" :style="{ backgroundColor: $state.color }" />
+    <q-btn :label="`update to ${$state?.version + 1} version`" @click="incrementVersion" :style="{ backgroundColor: $state.color }" />
   </q-page>
 </template>
 
 <script setup lang="ts">
 import { useAppInfoStore } from "stores/version.store";
-import {computed, ref} from "vue";
+import { ref } from "vue";
 
 const { incrementVersion, $state } = useAppInfoStore()
 const isCopied = ref(false)
-const buttonLabel = computed(() => `update to ${$state?.version + 1} version`)
 
 function onCopy() {
   // fixme
