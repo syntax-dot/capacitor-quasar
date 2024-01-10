@@ -5,14 +5,14 @@ const config: CapacitorConfig = {
   appName: 'quasar-project',
   webDir: 'www',
   server: {
-    androidScheme: 'https'
+    androidScheme: 'https',
   },
   plugins: {
-    CapacitorUpdater : {
+    CapacitorUpdater: {
       autoUpdate: true,
     },
     PushNotifications: {
-      presentationOptions: ["badge", "sound", "alert"],
+      presentationOptions: ['badge', 'sound', 'alert'],
     },
   },
 };
