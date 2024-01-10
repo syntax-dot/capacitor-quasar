@@ -11,3 +11,9 @@ onMounted(async () => {
   await registerNotifications()
 })
 </script>
+
+<style lang="scss">
+.q-notification {
+  width: 100%;
+}
+</style>

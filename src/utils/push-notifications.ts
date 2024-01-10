@@ -20,7 +20,7 @@ export async function addPushNotificationsListeners(quasar?: QVueGlobals) {
   await PushNotifications.addListener('pushNotificationReceived', notification => {
     console.log('Push notification received: ', notification);
     Notify.create({
-      message: notification?.title,
+      message: notification?.title ?? 'New notification',
       caption: notification?.body,
       color: 'secondary',
       position: 'top-right',
