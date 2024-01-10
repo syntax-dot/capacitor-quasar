@@ -1,5 +1,6 @@
 <template>
   <q-page class="full-height column justify-center q-px-lg q-py-sm">
+    <div v-text="'v 3-1'" />
     <q-input
       v-if="$state?.token"
       class="text-bold q-py-sm"
