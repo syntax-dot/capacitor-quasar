@@ -28,7 +28,7 @@
       :style="{ backgroundColor: $state.color }"
       :loading="isLoading"
     >
-      <q-tooltip v-if="lastVersionInfo">{{ `version: ${lastVersionInfo.version}, date: ${lastVersionInfo.date}` }}</q-tooltip>
+      <q-tooltip v-if="lastVersionInfo">{{ `version: ${lastVersionInfo.version}, last-update: ${lastVersionInfo.date} (UTC)` }}</q-tooltip>
     </q-btn>
   </q-page>
 </template>
@@ -65,7 +65,6 @@ async function onCheckUpdate () {
       url: 'https://github.com/syntax-dot/capacitor-quasar/releases/download/v3/dist.zip',
       version: 'v3',
     })
-    console.log('data', data)
     if (data) {
       SplashScreen.show()
       try {
@@ -90,14 +89,13 @@ onMounted(async () => {
   const date = new Date(downloaded);
 
   const options = {
-    day: "2-digit",
     hour: "2-digit",
     minute: "2-digit",
+    second: "2-digit",
   };
 
   const formattedDate = date.toLocaleString("ru-RU", options);
   lastVersionInfo.value = { version, date: formattedDate }
   console.log('onMounted', data)
-
 })
 </script>
