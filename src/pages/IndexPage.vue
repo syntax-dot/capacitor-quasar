@@ -27,19 +27,22 @@
       @click="onCheckUpdate"
       :style="{ backgroundColor: $state.color }"
       :loading="isLoading"
-    />
+    >
+      <q-tooltip v-if="lastVersionInfo">{{ `version: ${lastVersionInfo.version}, date: ${lastVersionInfo.date}` }}</q-tooltip>
+    </q-btn>
   </q-page>
 </template>
 
 <script setup lang="ts">
 import { useAppInfoStore } from 'stores/version.store';
-import { ref } from 'vue';
+import {onMounted, ref} from 'vue';
 import { CapacitorUpdater } from "@capgo/capacitor-updater";
 import { SplashScreen } from '@capacitor/splash-screen'
 
 const { incrementVersion, $state } = useAppInfoStore();
 const isCopied = ref(false);
 const isLoading = ref(false);
+const lastVersionInfo = ref<{version: string, date: string} | null>(null);
 
 function onCopy() {
   // fixme
@@ -62,6 +65,7 @@ async function onCheckUpdate () {
       url: 'https://github.com/syntax-dot/capacitor-quasar/releases/download/v3/dist.zip',
       version: 'v3',
     })
+    console.log('data', data)
     if (data) {
       SplashScreen.show()
       try {
@@ -71,10 +75,29 @@ async function onCheckUpdate () {
         console.log(err);
       }
     }
-  } catch(e) {
-    console.error(e)
   } finally {
     isLoading.value = false
   }
 }
+
+onMounted(async () => {
+  const data = await CapacitorUpdater.download({
+    url: 'https://github.com/syntax-dot/capacitor-quasar/releases/download/v3/dist.zip',
+    version: 'v3',
+  })
+
+  const { version, downloaded } = data || {}
+  const date = new Date(downloaded);
+
+  const options = {
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  };
+
+  const formattedDate = date.toLocaleString("ru-RU", options);
+  lastVersionInfo.value = { version, date: formattedDate }
+  console.log('onMounted', data)
+
+})
 </script>
