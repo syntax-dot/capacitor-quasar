@@ -11,7 +11,7 @@ export const useAppInfoStore = defineStore('app-info', {
   state: (): VersionState => ({
     version: 0,
     token: null,
-    color: '#003FFF4D',
+    color: '#FF00004D',
   }),
 
   getters: {

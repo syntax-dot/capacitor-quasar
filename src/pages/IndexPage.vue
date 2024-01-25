@@ -1,6 +1,6 @@
 <template>
   <q-page class="full-height column justify-center q-px-lg q-py-sm">
-    <div v-text="'Версия от 11.01.24'" />
+    <div v-text="'Версия от 12.01.24'" />
     <q-input
       v-if="$state?.token"
       class="text-bold q-py-sm"
