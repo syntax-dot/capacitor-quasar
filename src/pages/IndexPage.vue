@@ -1,5 +1,12 @@
 <template>
   <q-page class="full-height column justify-center q-px-lg q-py-sm">
+    <q-btn-toggle label="Использовать тёмную тему"
+                  spread
+                  no-caps
+                  :model-value="currentTheme"
+                  @update:model-value="onUpdateTheme"
+                  toggle-color="primary" :options="themesList"  />
+
     <div v-text="'Версия от 11.01.24'" />
     <q-input
       v-if="$state?.token"
@@ -42,7 +49,13 @@ import { SplashScreen } from '@capacitor/splash-screen'
 const { incrementVersion, $state } = useAppInfoStore();
 const isCopied = ref(false);
 const isLoading = ref(false);
+const currentTheme = ref<string | null>(null);
 const lastVersionInfo = ref<{version: string, date: string} | null>(null);
+
+const themesList = [
+  { label: 'Темная', value: 'dark'},
+  { label: 'Светлая', value: 'light'},
+]
 
 function onCopy() {
   // fixme
@@ -58,6 +71,11 @@ function onCopy() {
   isCopied.value = true;
 }
 
+function onUpdateTheme(value: string) {
+  currentTheme.value = value
+  localStorage.setItem('theme', value)
+}
+
 async function onCheckUpdate () {
   isLoading.value = true
   try {
@@ -68,10 +86,10 @@ async function onCheckUpdate () {
     if (data) {
       SplashScreen.show()
       try {
-        await CapacitorUpdater.set({ id: data.id });
+        // await CapacitorUpdater.set({ id: data.id });
       } catch (err) {
-        SplashScreen.hide()
-        console.log(err);
+        // SplashScreen.hide()
+        // console.log(err);
       }
     }
   } finally {
@@ -80,6 +98,7 @@ async function onCheckUpdate () {
 }
 
 onMounted(async () => {
+  currentTheme.value = localStorage.getItem('theme')
   const data = await CapacitorUpdater.download({
     url: 'https://github.com/syntax-dot/capacitor-quasar/releases/download/v3/dist.zip',
     version: 'v3',

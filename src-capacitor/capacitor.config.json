@@ -5,5 +5,13 @@
   "server": {
     "androidScheme": "https",
     "url": "http://192.168.0.22:9500"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": true,
+      "backgroundColor": "#D7E9F2",
+      "androidSplashResourceName": "favicon_240dp",
+      "layoutName": "launch_screen"
+    }
   }
 }

@@ -1,5 +1,7 @@
 <template>
-  <router-view />
+  <div>
+    <router-view />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -11,6 +13,8 @@ import {
 import { CapacitorUpdater } from '@capgo/capacitor-updater';
 
 CapacitorUpdater.notifyAppReady();
+
+const currentTheme = localStorage.getItem('theme')
 
 onMounted(async () => {
   await addPushNotificationsListeners();
