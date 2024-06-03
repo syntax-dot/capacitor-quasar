@@ -1,11 +1,14 @@
 <template>
   <q-page class="full-height column justify-center q-px-lg q-py-sm">
-    <q-btn-toggle label="Использовать тёмную тему"
-                  spread
-                  no-caps
-                  :model-value="currentTheme"
-                  @update:model-value="onUpdateTheme"
-                  toggle-color="primary" :options="themesList"  />
+    <q-btn-toggle
+      label="Использовать тёмную тему"
+      spread
+      no-caps
+      :model-value="currentTheme"
+      @update:model-value="onUpdateTheme"
+      toggle-color="primary"
+      :options="themesList"
+    />
 
     <div v-text="'Версия от 11.01.24'" />
     <q-input
@@ -35,27 +38,31 @@
       :style="{ backgroundColor: $state.color }"
       :loading="isLoading"
     >
-      <q-tooltip v-if="lastVersionInfo">{{ `version: ${lastVersionInfo.version}, last-update: ${lastVersionInfo.date} (UTC)` }}</q-tooltip>
+      <q-tooltip v-if="lastVersionInfo"
+        >{{
+          `version: ${lastVersionInfo.version}, last-update: ${lastVersionInfo.date} (UTC)`
+        }}
+      </q-tooltip>
     </q-btn>
   </q-page>
 </template>
 
 <script setup lang="ts">
-import { useAppInfoStore } from 'stores/version.store';
-import {onMounted, ref} from 'vue';
-import { CapacitorUpdater } from "@capgo/capacitor-updater";
-import { SplashScreen } from '@capacitor/splash-screen'
+import { useAppInfoStore } from '../stores/version.store';
+import { onMounted, ref } from 'vue';
+import { CapacitorUpdater } from '@capgo/capacitor-updater';
+import { SplashScreen } from '@capacitor/splash-screen';
 
-const { incrementVersion, $state } = useAppInfoStore();
+const { $state } = useAppInfoStore();
 const isCopied = ref(false);
 const isLoading = ref(false);
 const currentTheme = ref<string | null>(null);
-const lastVersionInfo = ref<{version: string, date: string} | null>(null);
+const lastVersionInfo = ref<{ version: string; date: string } | null>(null);
 
 const themesList = [
-  { label: 'Темная', value: 'dark'},
-  { label: 'Светлая', value: 'light'},
-]
+  { label: 'Темная', value: 'dark' },
+  { label: 'Светлая', value: 'light' },
+];
 
 function onCopy() {
   // fixme
@@ -72,19 +79,19 @@ function onCopy() {
 }
 
 function onUpdateTheme(value: string) {
-  currentTheme.value = value
-  localStorage.setItem('theme', value)
+  currentTheme.value = value;
+  localStorage.setItem('theme', value);
 }
 
-async function onCheckUpdate () {
-  isLoading.value = true
+async function onCheckUpdate() {
+  isLoading.value = true;
   try {
     const data = await CapacitorUpdater.download({
       url: 'https://github.com/syntax-dot/capacitor-quasar/releases/download/v3/dist.zip',
       version: 'v3',
-    })
+    });
     if (data) {
-      SplashScreen.show()
+      SplashScreen.show();
       try {
         // await CapacitorUpdater.set({ id: data.id });
       } catch (err) {
@@ -93,28 +100,28 @@ async function onCheckUpdate () {
       }
     }
   } finally {
-    isLoading.value = false
+    isLoading.value = false;
   }
 }
 
 onMounted(async () => {
-  currentTheme.value = localStorage.getItem('theme')
+  currentTheme.value = localStorage.getItem('theme');
   const data = await CapacitorUpdater.download({
     url: 'https://github.com/syntax-dot/capacitor-quasar/releases/download/v3/dist.zip',
     version: 'v3',
-  })
+  });
 
-  const { version, downloaded } = data || {}
+  const { version, downloaded } = data || {};
   const date = new Date(downloaded);
 
   const options = {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
   };
 
-  const formattedDate = date.toLocaleString("ru-RU", options);
-  lastVersionInfo.value = { version, date: formattedDate }
-  console.log('onMounted', data)
-})
+  const formattedDate = date.toLocaleString('ru-RU', options);
+  lastVersionInfo.value = { version, date: formattedDate };
+  console.log('onMounted', data);
+});
 </script>

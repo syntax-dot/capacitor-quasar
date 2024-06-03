@@ -1,5 +1,5 @@
 import { PushNotifications } from '@capacitor/push-notifications';
-import { useAppInfoStore } from 'stores/version.store';
+import { useAppInfoStore } from '../stores/version.store';
 import { Notify } from 'quasar';
 
 export async function addPushNotificationsListeners() {

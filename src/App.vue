@@ -9,12 +9,11 @@ import { onMounted } from 'vue';
 import {
   addPushNotificationsListeners,
   registerNotifications,
-} from 'src/utils/push-notifications';
-import { CapacitorUpdater } from '@capgo/capacitor-updater';
+} from './utils/push-notifications';
 
-CapacitorUpdater.notifyAppReady();
+// CapacitorUpdater.notifyAppReady();
 
-const currentTheme = localStorage.getItem('theme')
+const currentTheme = localStorage.getItem('theme');
 
 onMounted(async () => {
   await addPushNotificationsListeners();
