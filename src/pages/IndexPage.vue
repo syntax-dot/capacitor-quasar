@@ -48,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAppInfoStore } from '../stores/version.store';
+import { useAppInfoStore } from 'src/stores/version.store';
 import { onMounted, ref } from 'vue';
 import { CapacitorUpdater } from '@capgo/capacitor-updater';
 import { SplashScreen } from '@capacitor/splash-screen';

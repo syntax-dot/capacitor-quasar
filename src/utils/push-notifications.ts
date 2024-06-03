@@ -1,15 +1,9 @@
 import { PushNotifications } from '@capacitor/push-notifications';
-import { useAppInfoStore } from '../stores/version.store';
 import { Notify } from 'quasar';
 
 export async function addPushNotificationsListeners() {
-  const { setToken, incrementVersion } = useAppInfoStore();
-
   await PushNotifications.addListener('registration', (token) => {
     console.info('Registration token: ', token.value);
-    if (token.value) {
-      setToken(token.value);
-    }
   });
 
   await PushNotifications.addListener('registrationError', (err) => {
@@ -20,13 +14,13 @@ export async function addPushNotificationsListeners() {
     'pushNotificationReceived',
     (notification) => {
       console.log('Push notification received: ', notification);
+      if (!notification) return;
       Notify.create({
-        message: notification?.title ?? 'New notification',
-        caption: notification?.body,
+        message: notification.title,
+        caption: notification.body,
         color: 'secondary',
         position: 'top-right',
       });
-      incrementVersion();
     }
   );
 
