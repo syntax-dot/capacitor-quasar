@@ -13,8 +13,6 @@ import {
 
 // CapacitorUpdater.notifyAppReady();
 
-const currentTheme = localStorage.getItem('theme');
-
 onMounted(async () => {
   await addPushNotificationsListeners();
   await registerNotifications();
