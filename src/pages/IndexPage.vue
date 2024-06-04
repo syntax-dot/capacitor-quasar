@@ -35,10 +35,10 @@
     <q-btn
       label="Check update"
       @click="onCheckUpdate"
-      :style="{ backgroundColor: $state.color }"
+      :style="{ backgroundColor: $state?.color ?? '#000' }"
       :loading="isLoading"
     >
-      <q-tooltip v-if="lastVersionInfo"
+      <q-tooltip v-if="lastVersionInfo?.version && lastVersionInfo?.date"
         >{{
           `version: ${lastVersionInfo.version}, last-update: ${lastVersionInfo.date} (UTC)`
         }}
@@ -105,23 +105,23 @@ async function onCheckUpdate() {
 }
 
 onMounted(async () => {
-  currentTheme.value = localStorage.getItem('theme');
-  const data = await CapacitorUpdater.download({
-    url: 'https://github.com/syntax-dot/capacitor-quasar/releases/download/v3/dist.zip',
-    version: 'v3',
-  });
-
-  const { version, downloaded } = data || {};
-  const date = new Date(downloaded);
-
-  const options = {
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-  };
-
-  const formattedDate = date.toLocaleString('ru-RU', options);
-  lastVersionInfo.value = { version, date: formattedDate };
-  console.log('onMounted', data);
+  // currentTheme.value = localStorage.getItem('theme');
+  // const data = await CapacitorUpdater.download({
+  //   url: 'https://github.com/syntax-dot/capacitor-quasar/releases/download/v3/dist.zip',
+  //   version: 'v3',
+  // });
+  //
+  // const { version, downloaded } = data || {};
+  // const date = new Date(downloaded);
+  //
+  // const options = {
+  //   hour: '2-digit',
+  //   minute: '2-digit',
+  //   second: '2-digit',
+  // };
+  //
+  // const formattedDate = date.toLocaleString('ru-RU', options);
+  // lastVersionInfo.value = { version, date: formattedDate };
+  // console.log('onMounted', data);
 });
 </script>

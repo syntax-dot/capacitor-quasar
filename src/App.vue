@@ -10,8 +10,9 @@ import {
   addPushNotificationsListeners,
   registerNotifications,
 } from 'src/utils/push-notifications';
+import { CapacitorUpdater } from '@capgo/capacitor-updater';
 
-// CapacitorUpdater.notifyAppReady();
+CapacitorUpdater.notifyAppReady();
 
 onMounted(async () => {
   await addPushNotificationsListeners();
